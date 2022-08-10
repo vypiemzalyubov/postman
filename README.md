@@ -1,7 +1,5 @@
 # Postman
 
----
-
 ### :open_hands: About Me :
 I am a Quality Assurance Engineer
 - :mailbox:How to reach me: [![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/mwlite/in/dmitriy-nikolaev-4aa854238)
