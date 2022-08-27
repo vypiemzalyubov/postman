@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "91a2e9f0-8272-489c-82a1-6a597c6d5baa",
+		"name": "Stepik_Scripts_4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20464288"
+	},
+	"item": [
+		{
+			"name": "req_GET_1.0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.has(\"count\");\r",
+							"\r",
+							"console.log(\"Does count exist? : \" + pm.globals.has(\"count\"));\r",
+							"console.log(\"Does count2 exist? : \" + pm.globals.has(\"count2\"));\r",
+							"\r",
+							"\r",
+							"console.log(pm.globals.replaceIn(\"Global variable count = {{count}}\"));\r",
+							"console.log(\"Global variable count2 = \" + pm.globals.get(\"count2\"));\r",
+							"\r",
+							"pm.globals.set(\"count\", 3)\r",
+							"pm.globals.set(\"count2\", 3)\r",
+							"\r",
+							"console.log(pm.globals.replaceIn(\"Global variable count = {{count}}\"));\r",
+							"console.log(pm.globals.replaceIn(\"Global variable count2 = {{count2}}\"));\r",
+							"\r",
+							"pm.globals.unset(\"count2\")\r",
+							"console.log(\"Global variable count2 = \" + pm.globals.get(\"count2\"));\r",
+							"\r",
+							"// Сначала мы выводим значения переменных с именами count и count2. Затем устанавливаем им\r",
+							"// новые значения и затем уже их снова выводим в лог. После вызова функции unset() переменная\r",
+							"// count2 снова будет иметь значение ‘undefined’\r",
+							"\r",
+							"// Сначала для переменной count выводится значение 20, которое было задано у нее. Для\r",
+							"// переменной count2, выводится undefined, т.к. такой переменной у нас не было. После вызова\r",
+							"// функции set, создается переменная count2. Для нее устанавливается значение 3. Значение у\r",
+							"// переменной count изменяется на 3. В последних двух строках в консоль выводятся уже новые\r",
+							"// значения этих переменных"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/get?param={{count}}",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "param",
+							"value": "{{count}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "req_GET_2.0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"(Global) count = \" + pm.globals.get(\"count\"))\r",
+							"console.log(\"(Collection) count = \" + pm.collectionVariables.get(\"count\"))\r",
+							"console.log(\"(Environment) count = \" + pm.environment.get(\"count\"))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/get?param={{count}}",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "param",
+							"value": "{{count}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "req_GET_3.0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"(Local, before change) count = \" + pm.variables.get(\"count\"))\r",
+							"pm.variables.set(\"count\", 18);\r",
+							"console.log(\"(Local, after change) count = \" + pm.variables.get(\"count\"))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/get?param={{count}}",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "param",
+							"value": "{{count}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "req_POST_1.0",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.request.headers.add({\r",
+							"  key: \"custom-header3\",\r",
+							"  value: \"custom-value3\"\r",
+							"});\r",
+							"pm.request.headers.remove(\"custom-header1\");\r",
+							"pm.request.headers.upsert({\r",
+							"  key: \"custom-header2\",\r",
+							"  value: \"custom-value4\"\r",
+							"});\r",
+							"\r",
+							"//Первый вызов добавляет к запросу новый заголовок с именем “custom-header3”. Второй удалит\r",
+							"//существующий заголовок с именем “custom-header1”. Третий вызов обновит значение для\r",
+							"//заголовка с именем “custom-header2”\r",
+							"\r",
+							"console.log(\"Request method : \" + pm.request.method);\r",
+							"console.log(\"Request url : \" + pm.request.url);\r",
+							"console.log(\"Request headers : \" + pm.request.headers);\r",
+							"console.log(\"Request body : \" + pm.request.body);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"var\": \"value\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-echo.com/post",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "req_POST_2.0",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.request.addQueryParams(\"param3=value3\");\r",
+							"pm.request.removeQueryParams(\"param1\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Code: \" + pm.response.code);\r",
+							"console.log(\"Status: \" + pm.response.status);\r",
+							"console.log(\"Time: \" + pm.response.responseTime);\r",
+							"console.log(\"Size: \" + pm.response.responseSize);\r",
+							"console.log(\"Headers: \" + pm.response.headers);\r",
+							"\r",
+							"console.log(pm.cookies.has(\"sails.sid\"));\r",
+							"console.log(pm.cookies.has(\"sails.sid2\"));\r",
+							"\r",
+							"console.log(pm.cookies.get(\"sails.sid\"));\r",
+							"console.log(pm.cookies.get(\"sails.sid2\"));\r",
+							"\r",
+							"console.log(pm.cookies.toObject());\r",
+							"\r",
+							"//Для существующей куки метод has() вернул значение true, для несуществующей false. Первый\r",
+							"//вызов метода get вернул значение куки с именем ‘sails.sid’, второй вызов вернул ‘undefined’\r",
+							"//т.к. куки с именем ‘sails.sid2’ отсутствует"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/post?param1=value1&param2=value2",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "param1",
+							"value": "value1"
+						},
+						{
+							"key": "param2",
+							"value": "value2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "count",
+			"value": "10",
+			"type": "string"
+		}
+	]
+}
